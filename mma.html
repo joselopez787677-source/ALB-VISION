@@ -50,7 +50,116 @@ footer{max-width:var(--max);margin:auto;padding:55px 5vw 28px}.footer-top{displa
 .section-head{margin-bottom:30px}
 @media(max-width:1050px){.products{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.products{grid-template-columns:1fr}.filters{overflow:auto;flex-wrap:nowrap}.filter{white-space:nowrap}}
-</style></head><body>
+
+/* ===== ALBVISION MOTION SYSTEM ===== */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0;
+  background:#050505;animation:pageIn .7s ease forwards;
+}
+@keyframes pageIn{to{opacity:0}}
+.nav{animation:navDrop .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes navDrop{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+.hero:after,.page-hero:after{animation:heroFade 1.2s ease both}
+@keyframes heroFade{from{opacity:0}to{opacity:1}}
+.hero video,.page-hero>img{animation:heroZoom 8s ease-out both}
+@keyframes heroZoom{from{transform:scale(1.10)}to{transform:scale(1)}}
+.hero h1,.page-hero h1{animation:heroTitle .95s cubic-bezier(.2,.85,.2,1) .15s both}
+.hero p,.page-hero p{animation:heroText .8s ease .35s both}
+.hero .btn{animation:heroText .8s ease .45s both}
+@keyframes heroTitle{from{opacity:0;transform:translateY(35px);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes heroText{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.eyebrow{position:relative}
+.eyebrow:after{
+  content:"";display:inline-block;width:34px;height:1px;background:currentColor;margin-left:10px;
+  vertical-align:middle;animation:lineGrow 1s ease .65s both;transform-origin:left;
+}
+@keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+[data-reveal]{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+[data-reveal].visible{opacity:1;transform:none}
+[data-reveal="left"]{transform:translateX(-45px)}
+[data-reveal="left"].visible{transform:none}
+[data-reveal="right"]{transform:translateX(45px)}
+[data-reveal="right"].visible{transform:none}
+
+.cards .card,.products .product{
+  will-change:transform;
+}
+.card{transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease}
+.card:hover{box-shadow:0 30px 70px rgba(0,0,0,.35)}
+.card:before{
+  content:"";position:absolute;z-index:3;left:-120%;top:0;width:70%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);
+  transform:skewX(-18deg);transition:left .8s ease;pointer-events:none;
+}
+.card:hover:before{left:140%}
+
+.product{transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .4s ease}
+.product .product-img{overflow:hidden}
+.product .product-img img{transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .45s ease}
+.product:hover .product-img img{transform:scale(1.07)}
+.product .add{position:relative;overflow:hidden}
+.product .add:after{
+  content:"";position:absolute;top:0;left:-120%;width:80%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+  transform:skewX(-18deg);transition:left .65s ease;
+}
+.product .add:hover:after{left:140%}
+
+.btn{position:relative;overflow:hidden}
+.btn:before{
+  content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.35) 50%,transparent 75%);
+  transform:translateX(-130%);transition:transform .7s ease;
+}
+.btn:hover:before{transform:translateX(130%)}
+.btn>*{position:relative}
+
+.motion-strip{
+  overflow:hidden;border-top:1px solid #252525;border-bottom:1px solid #252525;
+  background:#0d0d0d;white-space:nowrap;
+}
+.motion-track{
+  display:inline-flex;min-width:max-content;gap:55px;padding:15px 0;
+  animation:marquee 24s linear infinite;
+  font-family:"Barlow Condensed";font-size:22px;text-transform:uppercase;letter-spacing:.08em;
+}
+.motion-track span{display:inline-flex;align-items:center;gap:55px}
+.motion-track i{font-style:normal;color:var(--acid);font-size:12px}
+.motion-strip:hover .motion-track{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.float-mark{
+  position:absolute;right:4vw;top:18%;z-index:2;width:82px;height:82px;border:1px solid rgba(255,255,255,.25);
+  border-radius:50%;display:grid;place-items:center;color:#fff;font-size:9px;letter-spacing:.12em;
+  animation:float 4s ease-in-out infinite;
+  backdrop-filter:blur(4px);
+}
+.float-mark:before{content:"";position:absolute;inset:7px;border:1px solid rgba(255,255,255,.12);border-radius:50%}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(4deg)}}
+
+.page-loader{
+  position:fixed;inset:0;background:#070707;z-index:2000;display:grid;place-items:center;
+  transition:opacity .5s ease,visibility .5s ease;
+}
+.page-loader.hide{opacity:0;visibility:hidden}
+.loader-core{display:grid;gap:12px;text-align:center}
+.loader-core strong{font-family:"Barlow Condensed";font-size:56px;letter-spacing:.05em}
+.loader-bar{width:180px;height:2px;background:#222;overflow:hidden}
+.loader-bar span{display:block;height:100%;width:50%;background:var(--acid);animation:loadBar 1.1s ease forwards}
+@keyframes loadBar{from{width:0}to{width:100%}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  [data-reveal]{opacity:1!important;transform:none!important}
+}
+@media(max-width:700px){
+  .float-mark{display:none}
+  .motion-track{font-size:18px;gap:28px}
+  .motion-track span{gap:28px}
+}
+</style></head><body><div class="page-loader"><div class="loader-core"><strong>ALBVISION</strong><div class="loader-bar"><span></span></div><small style="color:#777;letter-spacing:.15em">DEL SET AL RING</small></div></div>
 <header class="nav">
  <a class="brand" href="index.html"><img src="data:image/png;base64,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" alt="ALBVISION"><span>ALBVISION</span></a>
  <nav class="links">
@@ -60,12 +169,12 @@ footer{max-width:var(--max);margin:auto;padding:55px 5vw 28px}.footer-top{displa
 </header>
 
 <main>
-<section class="page-hero"><img src="https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="MMA"><div class="hero-content"><div class="eyebrow">ALBVISION / MMA</div><h1>MMA<br><span class="stroke">Todo el combate.</span></h1><p>Guantes abiertos, protección, grappling y training para mezclar todas las distancias.</p></div></section>
-<section class="section"><div class="section-head"><div><div class="eyebrow">01 / Colección</div><h2>Equipamiento<br>mma.</h2></div><p>Selecciona una categoría para filtrar el catálogo.</p></div>
+<section class="page-hero"><img src="https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="MMA"><div class="float-mark">ALB<br>VISION</div><div class="hero-content"><div class="eyebrow">ALBVISION / MMA</div><h1>MMA<br><span class="stroke">Todo el combate.</span></h1><p>Guantes abiertos, protección, grappling y training para mezclar todas las distancias.</p></div></section>
+<section class="section" data-reveal><div class="section-head"><div><div class="eyebrow">01 / Colección</div><h2>Equipamiento<br>mma.</h2></div><p>Selecciona una categoría para filtrar el catálogo.</p></div>
 <div class="filters"><button class="filter active" data-filter="all">Todo</button><button class="filter" data-filter="guantes">Guantes</button><button class="filter" data-filter="proteccion">Protección</button><button class="filter" data-filter="ropa">Ropa</button><button class="filter" data-filter="manoplas">Manoplas</button><button class="filter" data-filter="vendas">Vendas</button><button class="filter" data-filter="fuerza">Fuerza</button><button class="filter" data-filter="cardio">Cardio</button></div>
 <div class="products"><article class="product" data-name="MMA Combat 01" data-price="99.90" data-img="https://static.wixstatic.com/media/551df7_949e5002aa884aaab2eadaa6514dd8f0~mv2.png/v1/fill/w_1600,h_970,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/551df7_949e5002aa884aaab2eadaa6514dd8f0~mv2.png" data-cat="guantes"><div class="product-img"><span class="badge">GUANTES MMA</span><img src="https://contents.mediadecathlon.com/p2811928/k%249ffbefc7b2994f8de4f9130f6fa010e7/650x0/2142pt2142/4283xcr5354/default.jpg?format=auto" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="MMA Combat 01"></div><div class="product-info"><div class="product-name">MMA Combat 01</div><div class="product-meta"><span>Guantes MMA</span><strong>99,90 €</strong></div><button class="add">AÑADIR AL CARRO</button></div></article><article class="product" data-name="Cage Short" data-price="54.90" data-img="https://cdn.shopify.com/s/files/1/0632/8218/4418/t/37/assets/rsz_mma_shockdoctor_2018_7-1681720968580_1000x.jpg?v=1681720969" data-cat="ropa"><div class="product-img"><span class="badge">SHORTS</span><img src="https://yooahinsikseekland.wordpress.com/wp-content/uploads/2015/08/veteranfeature4.jpg?w=610" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="Cage Short"></div><div class="product-info"><div class="product-name">Cage Short</div><div class="product-meta"><span>Shorts</span><strong>54,90 €</strong></div><button class="add">AÑADIR AL CARRO</button></div></article><article class="product" data-name="Grapple Shield" data-price="79.90" data-img="https://site.mfcgym.fr/kcfinder/upload/images/Pages/grappling/grappling-03.jpg" data-cat="proteccion"><div class="product-img"><span class="badge">PROTECCIÓN</span><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1400&q=88" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="Grapple Shield"></div><div class="product-info"><div class="product-name">Grapple Shield</div><div class="product-meta"><span>Protección</span><strong>79,90 €</strong></div><button class="add">AÑADIR AL CARRO</button></div></article><article class="product" data-name="Rashguard Core" data-price="59.90" data-img="https://static.wixstatic.com/media/551df7_949e5002aa884aaab2eadaa6514dd8f0~mv2.png/v1/fill/w_1600,h_970,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/551df7_949e5002aa884aaab2eadaa6514dd8f0~mv2.png" data-cat="ropa"><div class="product-img"><span class="badge">RASHGUARD</span><img src="https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="Rashguard Core"></div><div class="product-info"><div class="product-name">Rashguard Core</div><div class="product-meta"><span>Rashguard</span><strong>59,90 €</strong></div><button class="add">AÑADIR AL CARRO</button></div></article><article class="product" data-name="Fight Mitts" data-price="74.90" data-img="https://cdn.shopify.com/s/files/1/0632/8218/4418/t/37/assets/rsz_mma_shockdoctor_2018_7-1681720968580_1000x.jpg?v=1681720969" data-cat="manoplas"><div class="product-img"><span class="badge">MANOPLAS</span><img src="https://contents.mediadecathlon.com/p2811928/k%249ffbefc7b2994f8de4f9130f6fa010e7/650x0/2142pt2142/4283xcr5354/default.jpg?format=auto" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="Fight Mitts"></div><div class="product-info"><div class="product-name">Fight Mitts</div><div class="product-meta"><span>Manoplas</span><strong>74,90 €</strong></div><button class="add">AÑADIR AL CARRO</button></div></article><article class="product" data-name="Ground Mat Pro" data-price="189.90" data-img="https://site.mfcgym.fr/kcfinder/upload/images/Pages/grappling/grappling-03.jpg" data-cat="tatami"><div class="product-img"><span class="badge">TATAMI</span><img src="https://yooahinsikseekland.wordpress.com/wp-content/uploads/2015/08/veteranfeature4.jpg?w=610" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="Ground Mat Pro"></div><div class="product-info"><div class="product-name">Ground Mat Pro</div><div class="product-meta"><span>Tatami</span><strong>189,90 €</strong></div><button class="add">AÑADIR AL CARRO</button></div></article><article class="product" data-name="Mouthguard X" data-price="24.90" data-img="https://static.wixstatic.com/media/551df7_949e5002aa884aaab2eadaa6514dd8f0~mv2.png/v1/fill/w_1600,h_970,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/551df7_949e5002aa884aaab2eadaa6514dd8f0~mv2.png" data-cat="proteccion"><div class="product-img"><span class="badge">BUCAL</span><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1400&q=88" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="Mouthguard X"></div><div class="product-info"><div class="product-name">Mouthguard X</div><div class="product-meta"><span>Bucal</span><strong>24,90 €</strong></div><button class="add">AÑADIR AL CARRO</button></div></article><article class="product" data-name="Cage Hoodie" data-price="64.90" data-img="https://cdn.shopify.com/s/files/1/0632/8218/4418/t/37/assets/rsz_mma_shockdoctor_2018_7-1681720968580_1000x.jpg?v=1681720969" data-cat="ropa"><div class="product-img"><span class="badge">HOODIE</span><img src="https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="Cage Hoodie"></div><div class="product-info"><div class="product-name">Cage Hoodie</div><div class="product-meta"><span>Hoodie</span><strong>64,90 €</strong></div><button class="add">AÑADIR AL CARRO</button></div></article></div></section>
 <section class="section"><div class="banner"><div class="banner-media"><img src="https://contents.mediadecathlon.com/p2811928/k%249ffbefc7b2994f8de4f9130f6fa010e7/650x0/2142pt2142/4283xcr5354/default.jpg?format=auto" onerror="this.onerror=null;this.src='https://borzmartialartsclub.my.canva.site/images/d13bd4ae487d37190aa0f8ee303baca5.jpg';" alt="Entrenamiento"></div><div class="banner-copy"><div class="eyebrow">02 / Preparación</div><h2>El equipo<br>importa.</h2><p>El objetivo es que encuentres todo lo necesario para entrenar tu disciplina dentro de una misma identidad de marca.</p><a class="btn" href="index.html#disciplinas">CAMBIAR DE DISCIPLINA →</a></div></div></section>
-<section class="news"><div><div class="eyebrow">03 / Fight Club</div><h3>Entrena.<br>Vuelve.</h3><p>Recibe lanzamientos, nuevos productos y contenido de combate.</p></div><form class="form" onsubmit="event.preventDefault();alert('¡Bienvenido al Fight Club!');"><input type="email" placeholder="Tu email" required><button>UNIRME</button></form></section>
+<section class="news" data-reveal><div><div class="eyebrow">03 / Fight Club</div><h3>Entrena.<br>Vuelve.</h3><p>Recibe lanzamientos, nuevos productos y contenido de combate.</p></div><form class="form" onsubmit="event.preventDefault();alert('¡Bienvenido al Fight Club!');"><input type="email" placeholder="Tu email" required><button>UNIRME</button></form></section>
 </main>
 <aside class="cart" id="cart"><div class="cart-head"><b>CARRO <span id="cartCount">0</span></b><button class="circle" data-close-cart>×</button></div><div class="cart-items" id="cartItems"><p style="color:#777">Tu carro está vacío.</p></div><div class="cart-foot"><div class="total"><span>TOTAL</span><span id="cartTotal">0,00 €</span></div><button class="btn" style="width:100%">FINALIZAR COMPRA</button></div></aside>
 
@@ -96,4 +205,66 @@ document.querySelectorAll('.filter').forEach(f=>f.addEventListener('click',()=>{
  const cat=f.dataset.filter;
  document.querySelectorAll('.product').forEach(p=>p.style.display=(cat==='all'||p.dataset.cat===cat)?'block':'none');
 }));
+</script><script>
+(function(){
+  const ready = () => {
+    document.body.classList.add('motion-ready');
+
+    const loader = document.querySelector('.page-loader');
+    if(loader){
+      window.addEventListener('load',()=>setTimeout(()=>loader.classList.add('hide'),250),{once:true});
+      setTimeout(()=>loader.classList.add('hide'),1800);
+    }
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('[data-reveal]');
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+      reveals.forEach((el,i)=>{
+        el.style.transitionDelay = `${Math.min(i*45,280)}ms`;
+        io.observe(el);
+      });
+    }else{
+      reveals.forEach(el=>el.classList.add('visible'));
+    }
+
+    // Small cursor-follow glow on desktop
+    if(matchMedia('(pointer:fine)').matches){
+      const glow=document.createElement('div');
+      glow.style.cssText='position:fixed;z-index:0;pointer-events:none;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(216,255,47,.10),transparent 65%);transform:translate(-50%,-50%);left:-999px;top:-999px;transition:left .08s ease,top .08s ease;mix-blend-mode:screen;';
+      document.body.appendChild(glow);
+      window.addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+    }
+
+    // Gentle mouse tilt for cards
+    if(matchMedia('(pointer:fine)').matches){
+      document.querySelectorAll('.card,.product').forEach(card=>{
+        card.addEventListener('pointermove',e=>{
+          const r=card.getBoundingClientRect();
+          const x=(e.clientX-r.left)/r.width-.5;
+          const y=(e.clientY-r.top)/r.height-.5;
+          card.style.transform=`perspective(900px) rotateX(${(-y*3).toFixed(2)}deg) rotateY(${(x*3).toFixed(2)}deg) translateY(-4px)`;
+        });
+        card.addEventListener('pointerleave',()=>card.style.transform='');
+      });
+    }
+
+    // Parallax for hero media
+    const heroMedia=document.querySelector('.hero video,.page-hero>img');
+    if(heroMedia && matchMedia('(pointer:fine)').matches){
+      window.addEventListener('scroll',()=>{
+        const y=Math.min(window.scrollY,700);
+        heroMedia.style.transform=`scale(1.03) translateY(${y*.045}px)`;
+      },{passive:true});
+    }
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ready,{once:true}); else ready();
+})();
 </script></body></html>
